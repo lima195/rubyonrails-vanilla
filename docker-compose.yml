@@ -1,0 +1,40 @@
+version: "3.9"
+services:
+  ror_web:
+    container_name: ror_web
+    build: ./Dockerfile
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - .:/myapp
+    ports:
+      - "3000:3000"
+    depends_on:
+      - ror_db
+
+  ror_db:
+    container_name: ror_db
+    image: mysql:5.7
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - ./volumes/mysql/volume:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: app
+      MYSQL_PASSWORD: app
+      MYSQL_DATABASE: app
+
+  # ror_db:
+  #   container_name: ror_db
+  #   image: postgres
+  #   volumes:
+  #     - ./tmp/db:/var/lib/postgresql/data
+  #   environment:
+  #     POSTGRES_PASSWORD: password
+
+  adminer:
+    container_name: ror_adminer
+    image: adminer
+    ports:
+      - 8888:8080
+    links:
+      - ror_db
