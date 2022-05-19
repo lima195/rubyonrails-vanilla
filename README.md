@@ -5,10 +5,6 @@
     Rails version: 5
     Ruby version: 2.5 (x86_64-linux)
 
-* Database adminer access:
-
-http://localhost:8888/?pgsql=ror_db&username=postgres
-
 * Deployment instructions
 
 1.
@@ -54,3 +50,8 @@ password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
 5.
 
 > docker-compose run ror_web rake db:create
+
+* Project access:
+
+- http://localhost:3000
+- http://localhost:8888/?pgsql=ror_db&username=postgres (Password: root)
