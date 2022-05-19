@@ -4,31 +4,32 @@ services:
     build: .
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
-      - .:/myapp
+      - ./web:/myapp
     ports:
       - "3000:3000"
     depends_on:
       - ror_db
-
-  ror_db:
-    container_name: ror_db
-    image: mysql:5.7
-    command: --default-authentication-plugin=mysql_native_password
-    volumes:
-      - ./tmp/mysql:/var/lib/mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: app
-      MYSQL_PASSWORD: app
-      MYSQL_DATABASE: app
+    user: "${USER_ID}:${GROUP_ID}"
 
   # ror_db:
   #   container_name: ror_db
-  #   image: postgres
+  #   image: mysql:5.7
+  #   command: --default-authentication-plugin=mysql_native_password
   #   volumes:
-  #     - ./tmp/db:/var/lib/postgresql/data
+  #     - ./tmp/mysql:/var/lib/mysql
   #   environment:
-  #     POSTGRES_PASSWORD: password
+  #     MYSQL_ROOT_PASSWORD: root
+  #     MYSQL_USER: app
+  #     MYSQL_PASSWORD: app
+  #     MYSQL_DATABASE: app
+
+  ror_db:
+    container_name: ror_db
+    image: postgres
+    volumes:
+      - ./volumes/postgresql/db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: postgres
 
   adminer:
     container_name: ror_adminer

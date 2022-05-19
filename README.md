@@ -9,11 +9,11 @@
 
 1.
 
-> docker-compose run --no-deps ror_web rails new . --force --database=postgresql
+> mkdir web && docker-compose run --no-deps ror_web rails new . --force --database=postgresql
 
 2.
 
-> sudo chown -R $USER:$USER .
+> sudo chown -R $USER:$USER web/
 
 3.
 
@@ -25,33 +25,21 @@
 
 ```
 default: &default
-adapter: postgresql
-encoding: unicode
-host: ror_db
-username: postgres
-password: root
-pool: 5
-
-development:
-<<: *default
-database: myapp_development
-
-test:
-<<: *default
-database: myapp_test
-
-production:
-<<: *default
-database: myapp_production
-username: myapp
-password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
+  adapter: postgresql
+  encoding: unicode
+  host: ror_db
+  username: postgres
+  password: postgres
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 ```
 
-5.
+> docker-compose up -d
+
+6.
 
 > docker-compose run ror_web rake db:create
 
 * Project access:
 
 - http://localhost:3000
-- http://localhost:8888/?pgsql=ror_db&username=postgres (Password: root)
+- http://localhost:8888/?pgsql=ror_db&username=postgres (Password: postgres)
