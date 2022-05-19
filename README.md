@@ -5,7 +5,9 @@
     Rails version: 5
     Ruby version: 2.5 (x86_64-linux)
 
+* Database adminer access:
 
+http://localhost:8888/?pgsql=ror_db&username=postgres
 
 * Deployment instructions
 
