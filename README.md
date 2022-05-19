@@ -2,12 +2,13 @@
 
 * Ruby version
 
-    Rails version: 5.2.4.4
-    Ruby version: 2.5.8 (x86_64-linux)
+    Rails version: 5
+    Ruby version: 2.5 (x86_64-linux)
 
 * Deployment instructions
 
 > docker-compose build
+> docker-compose run --no-deps ror_web rails new . --force --database=mysql
 
 * Set your db info:
 
