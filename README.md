@@ -5,25 +5,49 @@
     Rails version: 5
     Ruby version: 2.5 (x86_64-linux)
 
+
+
 * Deployment instructions
 
-> docker-compose build
-> docker-compose run --no-deps ror_web rails new . --force --database=mysql
+1.
 
-* Set your db info:
+> docker-compose run --no-deps ror_web rails new . --force --database=postgresql
+
+2.
+
+> sudo chown -R $USER:$USER .
+
+3.
+
+> docker-compose build
+
+4.
+
+* Set your db info: (config/database.yml)
 
     default: &default
-    adapter: mysql2
-    encoding: utf8
-    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-    username: app
-    password: app
+    adapter: postgresql
+    encoding: unicode
     host: ror_db
+    username: postgres
+    password: root
+    pool: 5
 
     development:
     <<: *default
-    database: app
+    database: myapp_development
 
-> docker-compose up
+    test:
+    <<: *default
+    database: myapp_test
+
+    production:
+    <<: *default
+    database: myapp_production
+    username: myapp
+    password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
+
+
+5.
 
 > docker-compose run ror_web rake db:create
