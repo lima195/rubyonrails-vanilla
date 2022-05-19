@@ -25,28 +25,29 @@
 
 * Set your db info: (config/database.yml)
 
-    default: &default
-    adapter: postgresql
-    encoding: unicode
-    host: ror_db
-    username: postgres
-    password: root
-    pool: 5
+```
+default: &default
+adapter: postgresql
+encoding: unicode
+host: ror_db
+username: postgres
+password: root
+pool: 5
 
-    development:
-    <<: *default
-    database: myapp_development
+development:
+<<: *default
+database: myapp_development
 
-    test:
-    <<: *default
-    database: myapp_test
+test:
+<<: *default
+database: myapp_test
 
-    production:
-    <<: *default
-    database: myapp_production
-    username: myapp
-    password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
-
+production:
+<<: *default
+database: myapp_production
+username: myapp
+password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
+```
 
 5.
 
