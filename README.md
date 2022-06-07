@@ -2,22 +2,27 @@
 
 * Ruby version
 
-    Rails version: 5
-    Ruby version: 2.5 (x86_64-linux)
+    - Rails version: 5
+    - Ruby version: 2.5 (x86_64-linux)
 
-* Install steps
 
-### New RoR Project
+---
+
+## Install steps
+
+
+##### a) New RoR Project
+
 
 Init RoR directory 
 
 ```
 rm -rf web/; mkdir web && cp Gemfile* web;
-bin/rails new . --force --database=postgresql
+bin/rails new . --force --database=postgresql;
 cp sample/database.yml web/config;
 ```
 
-### Existing RoR Project
+##### b)  Existing RoR Project
 
 Clone your project
 
@@ -40,10 +45,10 @@ default: &default
 ```
 
 
---
+---
 
 
-### Instalation
+## Instalation
 
 1. Set right permissions (Only for linux)
 
@@ -60,8 +65,30 @@ docker-compose up -d
 3. Start Database
 
 ```
-bin/rake db:create
+bin/rails db:create
 ```
+
+---
+
+#### Useful commands:
+
+**bin/bash** - Run a command inside main container, ex:
+```
+bin/bash cli;
+bin/bash ls;
+bin/bash rails new .;
+```
+
+**bin/rails** - Run a rails command inside main container, ex:
+```
+bin/rails new .;
+bin/rails console;
+bin/rails dbconsole;
+bin/rails routes;
+bin/rails --help;
+```
+
+---
 
 * Project access:
 
