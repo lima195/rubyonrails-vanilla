@@ -5,21 +5,27 @@
     Rails version: 5
     Ruby version: 2.5 (x86_64-linux)
 
-* Deployment instructions
+* Install steps
 
-1.
+### New RoR Project
 
-> mkdir web && docker-compose run --no-deps ror_web rails new . --force --database=postgresql
+Init RoR directory 
 
-2.
+```
+rm -rf web/; mkdir web && cp Gemfile* web;
+bin/rails new . --force --database=postgresql
+cp sample/database.yml web/config;
+```
 
-> sudo chown -R $USER:$USER web/
+### Existing RoR Project
 
-3.
+Clone your project
 
-> docker-compose build
+```
+git clone $(YOUR_GIT_REPO) web;
+```
 
-4.
+* Import your database
 
 * Set your db info: (config/database.yml)
 
@@ -33,11 +39,29 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 ```
 
-> docker-compose up -d
 
-6.
+--
 
-> docker-compose run ror_web rake db:create
+
+### Instalation
+
+1. Set right permissions (Only for linux)
+
+```
+sudo chown -R $USER:$USER web/
+```
+
+2. Start Docker
+
+```
+docker-compose up -d
+```
+
+3. Start Database
+
+```
+bin/rake db:create
+```
 
 * Project access:
 

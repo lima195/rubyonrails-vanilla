@@ -1,7 +1,9 @@
 # syntax=docker/dockerfile:1
 FROM ruby:2.5
-RUN apt-get update -qq && apt-get install -y nodejs postgresql-client
 WORKDIR /myapp
+RUN mkdir -p /usr/local/bundle/cache
+RUN chown -R $USER_ID:$USER_ID /usr/local/bundle/cache
+RUN apt-get update -qq && apt-get install -y nodejs postgresql-client
 COPY web/Gemfile /myapp/Gemfile
 COPY web/Gemfile.lock /myapp/Gemfile.lock
 RUN bundle install

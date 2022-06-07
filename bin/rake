@@ -1,0 +1,3 @@
+#!/bin/bash
+[ -z "$1" ] && echo "Please specify a CLI command (ex. db:create)" && exit
+bin/cli rake "$@"
